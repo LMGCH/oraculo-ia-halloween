@@ -27,11 +27,24 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
         document.getElementById('numeroGordo').innerText = data.numero;
         document.getElementById('prediccionTexto').innerText = data.texto;
         // Pega esto justo debajo de: document.getElementById('prediccionTexto').innerText = data.texto;
-
+        // Busca la lógica del botón compartir en tu app.js y cámbiala exactamente por esta:
+        
         const btnCompartir = document.getElementById('btnCompartir');
         btnCompartir.onclick = () => {
-            const mensaje = `🔮 ¡La Bruja IA ha invocado mi número para el Gordo de Navidad! 🎄✨%0A%0AMi número de la suerte es el **${data.numero}**.%0A%0AProfezia: "${data.texto}"%0A%0AInvoque el tuyo gratis aquí: ${window.location.href}`;
-            window.open(`https://whatsapp.com{mensaje}`, '_blank');
+            // 1. Redactamos el mensaje de texto limpio usando plantillas normales
+            const textoSucio = `🔮 ¡El Oráculo de Halloween IA ha invocado mi número del Gordo! 🎄✨\n\n` +
+                               `Mi número de la suerte es el: ${data.numero}\n\n` +
+                               `Profecía: "${data.texto}"\n\n` +
+                               `Invoque el tuyo gratis aquí: ${window.location.href}`;
+            
+            // 2. LA MAGIA CLAVE: Traducimos de forma segura los espacios y saltos de línea para internet
+            const textoCodificado = encodeURIComponent(textoSucio);
+            
+            // 3. Utilizamos el enlace corto wa.me universal y oficial de WhatsApp
+            const urlWhatsApp = "https://wa.me/?text=" + textoCodificado;
+            
+            // 4. Abrimos la pestaña para que el usuario elija a qué contacto enviárselo
+            window.open(urlWhatsApp, '_blank');
         };
         
         resultadoDiv.classList.remove('hidden');
