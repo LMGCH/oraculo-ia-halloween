@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Falta la API_KEY en Vercel.' });
     }
 
-    const url = `https://googleapis.com{API_KEY}`;
+    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
 
     const prompt = `Actúas como una bruja gótica, sarcástica y divertida de Halloween. 
     Un usuario te pide su número de la suerte para el Gordo de Navidad de este año.
