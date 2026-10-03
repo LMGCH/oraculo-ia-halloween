@@ -117,3 +117,13 @@ button:hover {
     100% { transform: translateY(0px); }
 }
 
+.btn-whatsapp {
+    background: linear-gradient(135deg, #25d366, #128c7e) !important;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3) !important;
+    margin-top: 20px !important;
+}
+
+.btn-whatsapp:hover {
+    background: linear-gradient(135deg, #34af23, #25d366) !important;
+    box-shadow: 0 0 25px rgba(37, 211, 102, 0.6) !important;
+}
