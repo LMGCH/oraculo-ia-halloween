@@ -151,41 +151,86 @@ button:hover {
 }
 
 /* Reemplaza la regla .oracle-avatar por esta versión ampliada y vibrante */
+/* Contenedor circular unificado y perfectamente centrado */
 .oracle-avatar {
-    width: 160px; /* Círculo expandido y majestuoso */
+    width: 160px;
     height: 160px;
     margin: 0 auto 20px auto;
     border-radius: 50%;
+    border: 3.5px solid #9d4edd;
     
-    /* Borde neón morado eléctrico */
-    border: 3.5px solid #bd93f9; 
-    
-    /* Fondo degradado morado oscuro de brujería */
-    background: radial-gradient(circle, #381a61 0%, #130924 100%);
-    
+    /* Forzamos centrado absoluto por flexbox para que NADA se mueva de su sitio interior */
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden; 
+    position: relative;
     
-    /* Doble sombra de resplandor externa e interna */
-    box-shadow: 0 0 35px rgba(189, 147, 249, 0.6), inset 0 0 20px rgba(189, 147, 249, 0.3);
+    /* Fondo con un morado de base estable */
+    background: #130924;
     
-    /* Animación fluida de levitación mística */
-    animation: flotarGranAvatar 4.5s ease-in-out infinite;
-    transition: 0.3s ease;
+    /* Resplandor neón inicial */
+    box-shadow: 0 0 30px rgba(157, 78, 221, 0.5), inset 0 0 15px rgba(157, 78, 221, 0.3);
+    
+    /* ANIMACIÓN UNIFICADA: Todo el bloque (círculo e imagen) se mueve junto en perfecta armonía */
+    animation: flotarYCambiarColor 5s ease-in-out infinite;
+    transition: all 0.4s ease;
 }
 
-/* Efecto hover interactivo: cuando pasas el ratón, el círculo brilla con más fuerza */
+/* El contenedor interno ya no necesita lógica propia, solo hereda el centro */
+.witch-crop-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* La imagen se queda estática respecto al círculo, eliminando el descentrado */
+.oracle-img {
+    width: 135%;
+    height: 135%;
+    object-fit: contain;
+    position: relative;
+    top: -5px; 
+    
+    /* Mantenemos tu filtro que transforma las líneas a ese azul/cian neón tan chulo */
+    filter: invert(0.2) sepia(1) hue-rotate(185deg) saturate(6) brightness(1.2) drop-shadow(0 0 8px rgba(0, 212, 255, 0.4));
+    transition: all 0.4s ease;
+}
+
+/* 🔴 EL COMPORTAMIENTO HOVER QUE TE GUSTÓ: Resplandor rojizo/rosa eléctrico */
 .oracle-avatar:hover {
     border-color: #ff79c6;
+    /* Un subidón de sombras en tonos magenta/rojos */
     box-shadow: 0 0 45px rgba(255, 121, 198, 0.9), inset 0 0 25px rgba(255, 121, 198, 0.5);
+    transform: scale(1.03); /* Un pequeño efecto de aumento muy sutil */
 }
 
-.oracle-avatar svg {
-    width: 80%;
-    height: 80%;
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+/* Al pasar el ratón, la brujita también reacciona al resplandor rojizo */
+.oracle-avatar:hover .oracle-img {
+    filter: invert(0.2) sepia(1) hue-rotate(310deg) saturate(8) brightness(1.3) drop-shadow(0 0 12px rgba(255, 121, 198, 0.8));
 }
+
+/* 🔮 NUEVA ANIMACIÓN DE COLOR DE BORDE Y LUZ (Compatible con todos los navegadores) */
+@keyframes flotarYCambiarColor {
+    0% { 
+        transform: translateY(0px); 
+        border-color: #9d4edd; /* Morado */
+        box-shadow: 0 0 30px rgba(157, 78, 221, 0.5), inset 0 0 15px rgba(157, 78, 221, 0.3);
+    }
+    50% { 
+        transform: translateY(-8px); /* Sube suavemente */
+        border-color: #00d4ff; /* Transición fluida a Azul Cian neón */
+        box-shadow: 0 0 40px rgba(0, 212, 255, 0.7), inset 0 0 20px rgba(0, 212, 255, 0.4);
+    }
+    100% { 
+        transform: translateY(0px); /* Vuelve a bajar */
+        border-color: #9d4edd; /* Regresa al Morado */
+        box-shadow: 0 0 30px rgba(157, 78, 221, 0.5), inset 0 0 15px rgba(157, 78, 221, 0.3);
+    }
+}
+
 
 /* Estilo para los créditos de reconocimiento legítimos de coste 0 */
 .creditos {
@@ -209,13 +254,4 @@ button:hover {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-7px); }
     100% { transform: translateY(0px); }
-}
-
-/* Busca la clase .oracle-img en tu style.css y déjala así */
-.oracle-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* Le metemos un subidón de brillo y contraste para que resalte sobre el negro */
-    filter: brightness(1.3) contrast(1.1); 
 }
