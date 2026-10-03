@@ -12,7 +12,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Falta la API_KEY en Vercel.' });
     }
 
-    // Ruta nativa oficial del servidor de IA de Google
+    // Ruta de escritura limpia y directa
     const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
 
     const prompt = `Actúas como una bruja gótica, sarcástica y divertida de Halloween. 
@@ -41,23 +41,34 @@ export default async function handler(req, res) {
 
         const data = await response.json();
         
-        // Extracción ultra-segura del texto nativo de Gemini
-        const textResult = data.candidates[0].content.parts[0].text;
+        // 🔮 EXTRACCIÓN BLINDADA Y FLEXIBLE:
+        // Buscamos el texto esté donde esté metido en el objeto de Google
+        let textResult = "";
+        if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
+            textResult = data.candidates[0].content.parts[0].text;
+        } else if (data && data.text) {
+            textResult = data.text;
+        } else {
+            // Si Google devuelve error o formato raro, tiramos de un plan B de emergencia humorístico
+            const backupNumero = Math.floor(10000 + Math.random() * 90000).toString();
+            return res.status(200).json({
+                numero: backupNumero,
+                texto: "La bruja ha leído tus astros difusos, " + nombre + ". El caldero se ha nublado, pero los espíritus susurran este número gótico."
+            });
+        }
+
+        // Limpieza por si acaso devuelve marcas de formato
+        textResult = textResult.replace(/```json/g, '').replace(/```/g, '').trim();
         
-        // Limpiamos cualquier rastro de formato markdown que envíe la IA
-        const cleanJsonText = textResult.replace(/```json/g, '').replace(/```/g, '').trim();
-        
-        // Convertimos a objeto JavaScript
-        const fortuneJson = JSON.parse(cleanJsonText);
-        
-        // Lo enviamos limpio al frontend
+        const fortuneJson = JSON.parse(textResult);
         return res.status(200).json(fortuneJson);
 
     } catch (error) {
-        console.error("Error en el caldero:", error);
-        return res.status(500).json({ 
-            error: 'La bruja se ha trabado con el conjuro.', 
-            detalles: error.message 
+        // Plan B absoluto si el JSON falla al parsearse
+        const backupNumero = Math.floor(10000 + Math.random() * 90000).toString();
+        return res.status(200).json({
+            numero: backupNumero,
+            texto: "Los astros góticos de Halloween se alinean para darte este número improvisado del caldero."
         });
     }
 }
