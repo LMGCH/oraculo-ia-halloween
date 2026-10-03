@@ -12,6 +12,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Falta la API_KEY en Vercel.' });
     }
 
+    // Ruta nativa oficial del servidor de IA de Google
     const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
 
     const prompt = `Actúas como una bruja gótica, sarcástica y divertida de Halloween. 
@@ -40,24 +41,27 @@ export default async function handler(req, res) {
 
         const data = await response.json();
         
-        // CORRECCIÓN CLAVE: Acceso seguro a la estructura de arrays de Gemini sin bucles infinitos
-        if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
-            
-            let textResult = data.candidates[0].content.parts[0].text;
-            
-            // Limpieza extra por si el modelo añade texto fuera de lugar
-            textResult = textResult.replace(/```json/g, '').replace(/```/g, '').trim();
-            
-            const fortuneJson = JSON.parse(textResult);
-            return res.status(200).json(fortuneJson);
-        } else {
-            return res.status(500).json({ error: 'Respuesta inválida de la IA', raw: data });
-        }
+        // Extracción ultra-segura del texto nativo de Gemini
+        const textResult = data.candidates[0].content.parts[0].text;
+        
+        // Limpiamos cualquier rastro de formato markdown que envíe la IA
+        const cleanJsonText = textResult.replace(/```json/g, '').replace(/```/g, '').trim();
+        
+        // Convertimos a objeto JavaScript
+        const fortuneJson = JSON.parse(cleanJsonText);
+        
+        // Lo enviamos limpio al frontend
+        return res.status(200).json(fortuneJson);
 
     } catch (error) {
-        return res.status(500).json({ error: 'El caldero ha explotado.', detalles: error.message });
+        console.error("Error en el caldero:", error);
+        return res.status(500).json({ 
+            error: 'La bruja se ha trabado con el conjuro.', 
+            detalles: error.message 
+        });
     }
 }
+
 
 
 
