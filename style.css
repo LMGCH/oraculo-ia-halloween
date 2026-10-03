@@ -159,10 +159,11 @@ button:hover {
     animation: flotarAvatar 4s ease-in-out infinite;
 }
 
+/* Busca la clase .oracle-img en tu style.css y déjala así */
 .oracle-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* QUITAMOS EL FILTRO OSCURO: Dejamos la imagen limpia y con buen contraste */
-    filter: none; 
+    /* Le metemos un subidón de brillo y contraste para que resalte sobre el negro */
+    filter: brightness(1.3) contrast(1.1); 
 }
