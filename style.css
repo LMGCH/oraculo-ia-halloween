@@ -127,3 +127,15 @@ button:hover {
     background: linear-gradient(135deg, #34af23, #25d366) !important;
     box-shadow: 0 0 25px rgba(37, 211, 102, 0.6) !important;
 }
+
+.btn-loterias {
+    background: linear-gradient(135deg, #0056b3, #003580) !important;
+    box-shadow: 0 4px 20px rgba(0, 86, 179, 0.3) !important;
+    margin-top: 12px !important;
+    font-family: 'Cinzel', serif;
+}
+
+.btn-loterias:hover {
+    background: linear-gradient(135deg, #007bff, #0056b3) !important;
+    box-shadow: 0 0 25px rgba(0, 123, 255, 0.6) !important;
+}
