@@ -46,6 +46,30 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
             // 4. Abrimos la pestaña para que el usuario elija a qué contacto enviárselo
             window.open(urlWhatsApp, '_blank');
         };
+        // Pega esto justo debajo de la lógica del botón de WhatsApp en tu app.js
+
+        const btnLocalizar = document.getElementById('btnLocalizar');
+        btnLocalizar.onclick = async () => {
+            try {
+                // 1. Copiamos el número de 5 cifras automáticamente en el portapapeles del usuario
+                await navigator.clipboard.writeText(data.numero);
+                
+                // 2. Avisamos al usuario con un pequeño texto en el botón para mejorar la UX
+                const textoOriginal = btnLocalizar.innerText;
+                btnLocalizar.innerText = "¡Número Copiado! Abriendo Buscador... 📋";
+                
+                // 3. Abrimos la web oficial de Loterías y Apuestas del Estado en una nueva pestaña
+                setTimeout(() => {
+                    window.open("https://www.loteriasyapuestas.es/es/buscar-decimo", "_blank");
+                    btnLocalizar.innerText = textoOriginal;
+                }, 1200);
+        
+            } catch (err) {
+                // Plan B si el navegador bloquea el portapapeles por seguridad
+                window.open("https://www.loteriasyapuestas.es/es/buscar-decimo", "_blank");
+            }
+        };
+       
         
         resultadoDiv.classList.remove('hidden');
     } catch (error) {
