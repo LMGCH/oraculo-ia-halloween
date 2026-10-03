@@ -9,10 +9,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh; /* Cambiado de 'height' a 'min-height' para que la pantalla pueda crecer */
     margin: 0;
-    overflow: hidden;
+    padding: 20px;     /* Añadimos un margen de cortesía para pantallas de móvil */
+    overflow-y: auto;  /* Cambiado de 'hidden' a 'auto' para permitir el deslizamiento si hace falta */
 }
+
 
 .tarot-card {
     background: rgba(15, 11, 25, 0.95);
