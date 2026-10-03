@@ -1,59 +1,125 @@
 /* ==========================================================================
-   CONFIGURACIÓN TIPOGRÁFICA UNIFICADA Y PROFESIONAL (ESTILO GÓTICO PREMIUM)
+   GRIMORIO DE ESTILOS DEFINITIVO — ORÁCULO DE HALLOWEEN (SIN DUPLICADOS)
    ========================================================================== */
 
-/* 1. Importamos la fuente Cinzel con sus variantes regular y negrita */
+/* 1. Importamos la fuente premium unificada */
 @import url('https://googleapis.com');
 
-/* 2. Forzamos que TODO el documento use la misma fuente de base */
+/* 2. Configuración del fondo general de la pantalla */
 body {
     background-color: #050505;
     background-image: radial-gradient(circle at center, #1a0b2e 0%, #050505 80%);
     color: #f5f3f4;
-    font-family: 'Cinzel', serif; /* Aplicada universalmente */
+    font-family: 'Cinzel', serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    padding: 20px;
+    padding: 40px 20px; /* Margen de cortesía para que respire en móviles y PC */
     overflow-y: auto;
 }
 
-/* 3. Título principal (Misma fuente pero en tamaño gigante y negrita) */
+/* 3. ¡EL CONTENEDOR RECUPERADO! La tarjeta gótica principal */
+.tarot-card {
+    background: rgba(15, 11, 25, 0.95);
+    padding: 40px 30px;
+    border-radius: 24px;
+    border: 2.5px solid #9d4edd;
+    box-shadow: 0 0 35px rgba(157, 78, 221, 0.25), inset 0 0 15px rgba(157, 78, 221, 0.1);
+    text-align: center;
+    max-width: 460px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+}
+
+/* 4. El Avatar Circular de la Bruja (Perfectamente centrado) */
+.oracle-avatar {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 25px auto;
+    border-radius: 50%;
+    border: 3.5px solid #9d4edd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+    position: relative;
+    background: #130924;
+    box-shadow: 0 0 30px rgba(157, 78, 221, 0.5), inset 0 0 15px rgba(157, 78, 221, 0.3);
+    animation: flotarYCambiarColor 5s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.witch-crop-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.oracle-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 5px rgba(0, 212, 255, 0.3));
+    transition: all 0.3s ease;
+}
+
+/* Efecto Hover: Destello Flash rosa/magenta en el borde exterior al pasar el ratón */
+.oracle-avatar:hover {
+    border-color: #ff79c6;
+    box-shadow: 0 0 50px rgba(255, 121, 198, 0.95), inset 0 0 25px rgba(255, 121, 198, 0.6);
+    transform: scale(1.04);
+}
+
+.oracle-avatar:hover .oracle-img {
+    filter: brightness(1.3) contrast(1.2) drop-shadow(0 0 15px rgba(255, 121, 198, 0.8));
+}
+
+/* 5. Textos y Títulos Unificados */
 h1 { 
     font-family: 'Cinzel', serif;
     font-weight: 700;
     color: #3a86ff;
-    font-size: 2.4rem;
-    margin-bottom: 5px; 
-    letter-spacing: 2px;
+    font-size: 2.2rem;
+    margin: 15px 0 10px 0; 
+    letter-spacing: 1px;
     text-shadow: 0 0 10px rgba(58, 134, 255, 0.4);
 }
 
-/* 4. Subtítulo con un peso más ligero */
 .subtitle { 
     font-family: 'Cinzel', serif;
     font-weight: 400;
     color: #b7b7a4; 
     font-size: 0.85rem; 
+    line-height: 1.5;
     margin-bottom: 30px; 
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
-/* 5. Campos de formulario (Inputs) actualizados */
+/* 6. Campos del Formulario (Inputs) */
 input {
-    width: 90%;
+    width: 100%;
     padding: 14px;
     margin: 12px 0;
     background-color: #120c1f;
     border: 1px solid #3c166d;
     border-radius: 10px;
     color: #fff;
-    font-family: 'Cinzel', serif; /* Unificada */
+    font-family: 'Cinzel', serif;
     font-size: 0.95rem;
     letter-spacing: 1px;
+    box-sizing: border-box;
     transition: 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #9d4edd;
+    box-shadow: 0 0 12px rgba(157, 78, 221, 0.5);
 }
 
 input::placeholder {
@@ -61,63 +127,32 @@ input::placeholder {
     font-family: 'Cinzel', serif;
 }
 
-/* 6. Botones con la fuente corporativa */
+/* 7. Botones de Acción */
 button {
-    width: 97%;
+    width: 100%;
     padding: 16px;
     background: linear-gradient(135deg, #7b2cbf, #5a189a);
     color: white;
     border: none;
     border-radius: 10px;
-    font-family: 'Cinzel', serif; /* Unificada */
+    font-family: 'Cinzel', serif;
     font-weight: 700;
     font-size: 0.95rem;
     letter-spacing: 1px;
     cursor: pointer;
+    box-sizing: border-box;
     transition: 0.4s;
     box-shadow: 0 4px 20px rgba(90, 24, 154, 0.5);
     margin-top: 15px;
 }
 
-/* 7. El número premiado (Misma fuente, enorme y con tracking espaciado) */
-.numero-suerte {
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    font-size: 3.5rem;
-    color: #06d6a0;
-    text-shadow: 0 0 15px rgba(6, 214, 160, 0.8);
-    margin: 25px 0 15px 0;
-    letter-spacing: 6px;
-    animation: flotar 3s ease-in-out infinite;
+button:hover {
+    background: linear-gradient(135deg, #9d4edd, #7b2cbf);
+    transform: translateY(-2px);
+    box-shadow: 0 0 25px rgba(157, 78, 221, 0.8);
 }
 
-/* 8. Textos secundarios, avisos y créditos */
-#prediccionTexto, .lopd-text, .creditos {
-    font-family: 'Cinzel', serif;
-    font-weight: 400;
-    line-height: 1.6;
-}
-
-#prediccionTexto {
-    color: #e0aaff;
-    font-size: 1rem;
-}
-
-.lopd-text { 
-    color: #7b2cbf; 
-    font-size: 0.75rem; 
-    margin: 12px 0; 
-}
-
-.hidden { display: none; }
-
-/* Animación para que el número de lotería flote como un espectro */
-@keyframes flotar {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-    100% { transform: translateY(0px); }
-}
-
+/* Estilos específicos para los botones dinámicos inferiores */
 .btn-whatsapp {
     background: linear-gradient(135deg, #25d366, #128c7e) !important;
     box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3) !important;
@@ -133,106 +168,58 @@ button {
     background: linear-gradient(135deg, #0056b3, #003580) !important;
     box-shadow: 0 4px 20px rgba(0, 86, 179, 0.3) !important;
     margin-top: 12px !important;
-    font-family: 'Cinzel', serif;
 }
 
 .btn-loterias:hover {
     background: linear-gradient(135deg, #007bff, #0056b3) !important;
-    box-shadow: 0 0 25px rgba(0, 123, 255, 0.6) !important;
+    box-shadow: 0 0 25px rgba(0, 123, 155, 0.6) !important;
 }
 
-.creditos {
-    font-size: 0.7rem;
-    color: #555;
-    margin-top: 25px;
-}
-.creditos a {
-    color: #7b2cbf;
-    text-decoration: none;
-}
-
-
-/* ==========================================================================
-   BLOQUE DEL AVATAR DE LA BRUJA — ADAPTADO PARA IMAGEN CON FONDO AZUL
-   ========================================================================== */
-
-/* 1. Contenedor circular unificado y perfectamente centrado */
-.oracle-avatar {
-    width: 160px;
-    height: 160px;
-    margin: 0 auto 20px auto;
-    border-radius: 50%;
-    border: 3.5px solid #9d4edd;
-    
-    /* Centrado absoluto para que el disco interior no baile */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; 
-    position: relative;
-    
-    /* El fondo del contenedor se adapta al color oscuro de tu web */
-    background: #130924;
-    
-    /* Resplandor neón místico inicial */
-    box-shadow: 0 0 30px rgba(157, 78, 221, 0.5), inset 0 0 15px rgba(157, 78, 221, 0.3);
-    
-    /* Animación fluida de levitación y cambio cromático exterior */
-    animation: flotarYCambiarColor 5s ease-in-out infinite;
-    transition: all 0.3s ease;
+/* 8. Sección de Resultados Dinámicos */
+.numero-suerte {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 3.5rem;
+    color: #06d6a0;
+    text-shadow: 0 0 15px rgba(6, 214, 160, 0.8);
+    margin: 25px 0 15px 0;
+    letter-spacing: 6px;
+    animation: flotarNumero 3s ease-in-out infinite;
 }
 
-/* 2. Contenedor interno para el encuadre */
-.witch-crop-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#prediccionTexto {
+    color: #e0aaff;
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
-/* 3. La imagen de la brujita (Ajustada para que brille en sintonía con la web) */
-.oracle-img {
-    width: 100%; /* Ajustamos al 100% para que el disco azul encaje perfecto en el círculo */
-    height: 100%;
-    object-fit: cover;
-    
-    /* Filtro para potenciar el azul original y darle un toque neón sutil */
-    filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 5px rgba(0, 212, 255, 0.3));
-    transition: all 0.3s ease;
+/* 9. Textos de Privacidad y Créditos de Atribución */
+.lopd-text { 
+    color: #7b2cbf; 
+    font-size: 0.75rem; 
+    margin: 15px 0; 
 }
 
-/* 4. 🔴 EL COMPORTAMIENTO HOVER REFINADO (¡Adios al rojo chillón!) */
-.oracle-avatar:hover {
-    border-color: #ff79c6; /* El borde exterior cambia a rosa neón */
-    /* Generamos un resplandor exterior brutal estilo "FLASH místico" en tonos rosa/magenta */
-    box-shadow: 0 0 50px rgba(255, 121, 198, 0.95), inset 0 0 25px rgba(255, 121, 198, 0.6);
-    transform: scale(1.04); /* Efecto sutil de aumento de la tarjeta */
-}
-
-/* Al pasar el ratón, la brujita gana brillo tipo flash sin alterar drásticamente sus colores */
-.oracle-avatar:hover .oracle-img {
-    filter: brightness(1.3) contrast(1.2) drop-shadow(0 0 15px rgba(255, 121, 198, 0.8));
-}
-
-/* 5. Los créditos de reconocimiento legítimos */
 .creditos {
     font-size: 0.72rem;
     color: #6272a4;
     margin-top: 30px;
-    font-family: 'Segoe UI', sans-serif;
     opacity: 0.7;
 }
+
 .creditos a {
     color: #ff79c6;
     text-decoration: none;
     font-weight: bold;
 }
+
 .creditos a:hover {
     text-decoration: underline;
 }
 
-/* 6. ANIMACIÓN DE MOVIMIENTO DE TODO EL CONJUNTO */
+.hidden { display: none; }
+
+/* 10. Animaciones Cíclicas */
 @keyframes flotarYCambiarColor {
     0% { 
         transform: translateY(0px); 
@@ -240,8 +227,8 @@ button {
         box-shadow: 0 0 30px rgba(157, 78, 221, 0.5), inset 0 0 15px rgba(157, 78, 221, 0.3);
     }
     50% { 
-        transform: translateY(-8px); /* Sube en bloque perfectamente centrado */
-        border-color: #00d4ff; /* El neón exterior pasa de morado a azul cian */
+        transform: translateY(-8px); 
+        border-color: #00d4ff;
         box-shadow: 0 0 45px rgba(0, 212, 255, 0.7), inset 0 0 20px rgba(0, 212, 255, 0.4);
     }
     100% { 
@@ -250,4 +237,11 @@ button {
         box-shadow: 0 0 30px rgba(157, 78, 221, 0.5), inset 0 0 15px rgba(157, 78, 221, 0.3);
     }
 }
+
+@keyframes flotarNumero {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+}
+
 
