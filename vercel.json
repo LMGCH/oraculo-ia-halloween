@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/get-fortune", "destination": "/api/get-fortune.js" }
+  ]
+}
