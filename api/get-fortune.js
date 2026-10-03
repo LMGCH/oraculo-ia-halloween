@@ -41,17 +41,21 @@ export default async function handler(req, res) {
             body: JSON.stringify({
                 contents: [{ parts: [{ text: prompt }] }],
                 generationConfig: {
-                    responseMimeType: "application/json" // Forzamos formato JSON nativo
+                    responseMimeType: "application/json"
                 }
             })
         });
 
         const data = await response.json();
         
-        // Extraemos el texto generado por la IA
+        // CORRECCIÓN AQUÍ: Añadimos [0] para leer los arrays de la API correctamente
+        if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+            return res.status(500).json({ error: 'La bruja se ha quedado muda. Inténtalo de nuevo.' });
+        }
+
         let textResult = data.candidates[0].content.parts[0].text;
         
-        // Limpieza de seguridad por si Gemini mete bloques de código markdown
+        // Limpieza de seguridad por si acaso
         textResult = textResult.replace(/```json/g, '').replace(/```/g, '').trim();
         
         // Lo parseamos a JSON limpio para enviarlo al Frontend
