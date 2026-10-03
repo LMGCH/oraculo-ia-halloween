@@ -26,6 +26,13 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
         // Asumiendo que la IA te devuelve { numero: "54321", texto: "Predicción..." }
         document.getElementById('numeroGordo').innerText = data.numero;
         document.getElementById('prediccionTexto').innerText = data.texto;
+        // Pega esto justo debajo de: document.getElementById('prediccionTexto').innerText = data.texto;
+
+        const btnCompartir = document.getElementById('btnCompartir');
+        btnCompartir.onclick = () => {
+            const mensaje = `🔮 ¡La Bruja IA ha invocado mi número para el Gordo de Navidad! 🎄✨%0A%0AMi número de la suerte es el **${data.numero}**.%0A%0AProfezia: "${data.texto}"%0A%0AInvoque el tuyo gratis aquí: ${window.location.href}`;
+            window.open(`https://whatsapp.com{mensaje}`, '_blank');
+        };
         
         resultadoDiv.classList.remove('hidden');
     } catch (error) {
