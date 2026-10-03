@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     }
 
     // Usamos el endpoint estable y gratuito de Gemini 1.5 Flash
-    const url = "https://googleapis.com" + API_KEY;
+    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
 
     // Redactamos el prompt inyectando de forma limpia las variables del usuario
     const promptTexto = `Genera una predicción para el usuario:
