@@ -61,3 +61,5 @@ button:hover {
 }
 
 .hidden { display: none; }
+
+.lopd-text { font-size: 0.75rem; color: #b7b7a4; margin: 10px 0; }
