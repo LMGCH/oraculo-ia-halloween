@@ -140,24 +140,21 @@ button:hover {
     box-shadow: 0 0 25px rgba(0, 123, 255, 0.6) !important;
 }
 
-/* Modifica estas dos reglas en tu style.css para activar el brillo místico */
+/* Busca .oracle-avatar en tu style.css y déjalo así: */
 .oracle-avatar {
     width: 100px;
     height: 100px;
     margin: 0 auto 15px auto;
     border-radius: 50%;
-    /* Borde de neón azul brillante para contrastar con el fondo negro */
     border: 3px solid #00d4ff; 
-    /* Sombra exterior e interior que simula el resplandor de la bola */
     box-shadow: 0 0 25px rgba(0, 212, 255, 0.6), inset 0 0 15px rgba(0, 212, 255, 0.4);
-    overflow: hidden;
-    /* Fondo morado/azul luminoso de respaldo para que la silueta resalte */
-    background: radial-gradient(circle, #2c1a4d 0%, #0f0b19 100%);
+    background: #0d081b; /* Fondo oscuro unificado */
     display: flex;
     justify-content: center;
     align-items: center;
     animation: flotarAvatar 4s ease-in-out infinite;
 }
+
 
 /* Busca la clase .oracle-img en tu style.css y déjala así */
 .oracle-img {
