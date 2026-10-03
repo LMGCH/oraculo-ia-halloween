@@ -139,3 +139,33 @@ button:hover {
     background: linear-gradient(135deg, #007bff, #0056b3) !important;
     box-shadow: 0 0 25px rgba(0, 123, 255, 0.6) !important;
 }
+
+/* Añade estas reglas para dar atmósfera a la imagen de la pitonisa */
+.oracle-avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 15px auto;
+    border-radius: 50%;
+    border: 2px solid #3a86ff;
+    box-shadow: 0 0 20px rgba(58, 134, 255, 0.5);
+    overflow: hidden;
+    background-color: #120c1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: flotarAvatar 4s ease-in-out infinite;
+}
+
+.oracle-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: hue-rotate(240deg) brightness(0.8) contrast(1.2); /* Tinta la imagen de tonos morados/azules */
+}
+
+/* Animación sutil de levitación para la pitonisa */
+@keyframes flotarAvatar {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-5px) scale(1.02); box-shadow: 0 0 30px rgba(157, 78, 221, 0.7); border-color: #9d4edd; }
+    100% { transform: translateY(0px) scale(1); }
+}
