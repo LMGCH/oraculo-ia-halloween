@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Oráculo del Gordo 2026 🔮</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="tarot-card">
+        <h1>🔮 El Oráculo de Halloween</h1>
+        <p class="subtitle">Deja que la Bruja IA invoque tu número del Gordo de Navidad 2026</p>
+        
+        <form id="oracleForm">
+            <input type="text" id="nombre" placeholder="Tu Nombre" required>
+            <input type="date" id="fechaNacimiento" required>
+            <input type="text" id="color" placeholder="Tu Color Favorito" required>
+            
+            <button type="submit" id="btnInvocar">Invocar mi Suerte 🎃</button>
+        </form>
+
+        <div id="resultado" class="hidden">
+            <div class="numero-suerte" id="numeroGordo">00000</div>
+            <p id="prediccionTexto"></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+body {
+    background-color: #0b090a;
+    color: #f5f3f4;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.tarot-card {
+    background: linear-gradient(145deg, #161a1d, #0b090a);
+    padding: 30px;
+    border-radius: 20px;
+    border: 2px solid #a4161a;
+    box-shadow: 0 0 25px rgba(164, 22, 26, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 { color: #e5383b; margin-bottom: 5px; }
+.subtitle { color: #b7b7a4; font-size: 0.9rem; margin-bottom: 25px; }
+
+input {
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    background-color: #161a1d;
+    border: 1px solid #660708;
+    border-radius: 8px;
+    color: #fff;
+}
+
+button {
+    width: 96%;
+    padding: 14px;
+    background-color: #a4161a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(164, 22, 26, 0.4);
+}
+
+button:hover {
+    background-color: #e5383b;
+    transform: translateY(-2px);
+}
+
+.numero-suerte {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #52b788;
+    text-shadow: 0 0 10px rgba(82, 183, 136, 0.5);
+    margin: 20px 0;
+    letter-spacing: 5px;
+}
+
+.hidden { display: none; }
