@@ -15,7 +15,7 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
 
     try {
         // Llamada a tu función Serverless de Vercel/Netlify para no exponer tu API Key
-        const response = await fetch('/api/get-fortune', {
+        const response = await fetch('/api/get-fortune.js', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(datos)
