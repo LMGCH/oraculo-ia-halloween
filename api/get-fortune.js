@@ -2,7 +2,7 @@
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Solo aceptamos peticiones POST.' });
+        return res.status(405).json({ error: 'Solo se permite método POST.' });
     }
 
     const { nombre, fecha, color } = req.body;
@@ -40,22 +40,24 @@ export default async function handler(req, res) {
 
         const data = await response.json();
         
-        // Verificación exhaustiva del objeto que devuelve Google
-        if (!data || !data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0]) {
-            return res.status(500).json({ error: 'Estructura incorrecta de la API de Google', raw: data });
+        // CORRECCIÓN CLAVE: Acceso seguro a la estructura de arrays de Gemini sin bucles infinitos
+        if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
+            
+            let textResult = data.candidates[0].content.parts[0].text;
+            
+            // Limpieza extra por si el modelo añade texto fuera de lugar
+            textResult = textResult.replace(/```json/g, '').replace(/```/g, '').trim();
+            
+            const fortuneJson = JSON.parse(textResult);
+            return res.status(200).json(fortuneJson);
+        } else {
+            return res.status(500).json({ error: 'Respuesta inválida de la IA', raw: data });
         }
-
-        let textResult = data.candidates[0].content.parts[0].text;
-        
-        // Limpiamos cualquier marca extraña por si acaso
-        textResult = textResult.replace(/```json/g, '').replace(/```/g, '').trim();
-        
-        const fortuneJson = JSON.parse(textResult);
-        return res.status(200).json(fortuneJson);
 
     } catch (error) {
         return res.status(500).json({ error: 'El caldero ha explotado.', detalles: error.message });
     }
 }
+
 
 
