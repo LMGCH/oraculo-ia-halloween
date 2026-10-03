@@ -152,7 +152,7 @@ button:hover {
 
 
 /* ==========================================================================
-   SECCIÓN DEL AVATAR DE LA BRUJA (CORREGIDO Y SIN DUPLICADOS)
+   BLOQUE DEL AVATAR DE LA BRUJA — ADAPTADO PARA IMAGEN CON FONDO AZUL
    ========================================================================== */
 
 /* 1. Contenedor circular unificado y perfectamente centrado */
@@ -163,25 +163,25 @@ button:hover {
     border-radius: 50%;
     border: 3.5px solid #9d4edd;
     
-    /* Forzamos centrado absoluto para que la imagen no baile */
+    /* Centrado absoluto para que el disco interior no baile */
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden; 
     position: relative;
     
-    /* Fondo con un morado oscuro estable */
+    /* El fondo del contenedor se adapta al color oscuro de tu web */
     background: #130924;
     
-    /* Resplandor neón inicial */
+    /* Resplandor neón místico inicial */
     box-shadow: 0 0 30px rgba(157, 78, 221, 0.5), inset 0 0 15px rgba(157, 78, 221, 0.3);
     
-    /* ANIMACIÓN UNIFICADA: Todo el bloque se mueve junto en perfecta armonía */
+    /* Animación fluida de levitación y cambio cromático exterior */
     animation: flotarYCambiarColor 5s ease-in-out infinite;
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
 }
 
-/* 2. El contenedor interno que hereda el centro */
+/* 2. Contenedor interno para el encuadre */
 .witch-crop-container {
     width: 100%;
     height: 100%;
@@ -190,32 +190,31 @@ button:hover {
     align-items: center;
 }
 
-/* 3. Ajuste de la imagen local: Tamaño correcto para ocultar las letras inferiores */
+/* 3. La imagen de la brujita (Ajustada para que brille en sintonía con la web) */
 .oracle-img {
-    width: 135%;
-    height: 135%;
-    object-fit: contain;
-    position: relative;
-    top: -5px; 
+    width: 100%; /* Ajustamos al 100% para que el disco azul encaje perfecto en el círculo */
+    height: 100%;
+    object-fit: cover;
     
-    /* Filtro mágico que transforma las líneas originales a azul/cian neón */
-    filter: invert(0.2) sepia(1) hue-rotate(185deg) saturate(6) brightness(1.2) drop-shadow(0 0 8px rgba(0, 212, 255, 0.4));
-    transition: all 0.4s ease;
+    /* Filtro para potenciar el azul original y darle un toque neón sutil */
+    filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 5px rgba(0, 212, 255, 0.3));
+    transition: all 0.3s ease;
 }
 
-/* 4. El comportamiento HOVER: Resplandor rojizo/rosa eléctrico al pasar el ratón */
+/* 4. 🔴 EL COMPORTAMIENTO HOVER REFINADO (¡Adios al rojo chillón!) */
 .oracle-avatar:hover {
-    border-color: #ff79c6;
-    box-shadow: 0 0 45px rgba(255, 121, 198, 0.9), inset 0 0 25px rgba(255, 121, 198, 0.5);
-    transform: scale(1.03); /* Efecto sutil de aumento */
+    border-color: #ff79c6; /* El borde exterior cambia a rosa neón */
+    /* Generamos un resplandor exterior brutal estilo "FLASH místico" en tonos rosa/magenta */
+    box-shadow: 0 0 50px rgba(255, 121, 198, 0.95), inset 0 0 25px rgba(255, 121, 198, 0.6);
+    transform: scale(1.04); /* Efecto sutil de aumento de la tarjeta */
 }
 
-/* Al pasar el ratón, la brujita también cambia de color hacia el rojo/rosa */
+/* Al pasar el ratón, la brujita gana brillo tipo flash sin alterar drásticamente sus colores */
 .oracle-avatar:hover .oracle-img {
-    filter: invert(0.2) sepia(1) hue-rotate(310deg) saturate(8) brightness(1.3) drop-shadow(0 0 12px rgba(255, 121, 198, 0.8));
+    filter: brightness(1.3) contrast(1.2) drop-shadow(0 0 15px rgba(255, 121, 198, 0.8));
 }
 
-/* 5. Los créditos de reconocimiento legítimos de coste 0 */
+/* 5. Los créditos de reconocimiento legítimos */
 .creditos {
     font-size: 0.72rem;
     color: #6272a4;
@@ -232,21 +231,22 @@ button:hover {
     text-decoration: underline;
 }
 
-/* 6. ÚNICA ANIMACIÓN DE MOVIMIENTO Y COLOR COMPATIBLE */
+/* 6. ANIMACIÓN DE MOVIMIENTO DE TODO EL CONJUNTO */
 @keyframes flotarYCambiarColor {
     0% { 
         transform: translateY(0px); 
-        border-color: #9d4edd; /* Morado */
+        border-color: #9d4edd;
         box-shadow: 0 0 30px rgba(157, 78, 221, 0.5), inset 0 0 15px rgba(157, 78, 221, 0.3);
     }
     50% { 
-        transform: translateY(-8px); /* Sube suavemente */
-        border-color: #00d4ff; /* Cambia a Azul Cian neón */
-        box-shadow: 0 0 40px rgba(0, 212, 255, 0.7), inset 0 0 20px rgba(0, 212, 255, 0.4);
+        transform: translateY(-8px); /* Sube en bloque perfectamente centrado */
+        border-color: #00d4ff; /* El neón exterior pasa de morado a azul cian */
+        box-shadow: 0 0 45px rgba(0, 212, 255, 0.7), inset 0 0 20px rgba(0, 212, 255, 0.4);
     }
     100% { 
-        transform: translateY(0px); /* Vuelve a su posición */
-        border-color: #9d4edd; /* Regresa al Morado */
+        transform: translateY(0px); 
+        border-color: #9d4edd;
         box-shadow: 0 0 30px rgba(157, 78, 221, 0.5), inset 0 0 15px rgba(157, 78, 221, 0.3);
     }
 }
+
