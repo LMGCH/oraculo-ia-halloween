@@ -156,30 +156,56 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 
                 if (!response.ok) {
-                    throw new Error(`Error en el servidor: ${response.status}`);
+                    // Si el servidor se ha caído (Error 500, 404, etc.), capturamos el texto técnico
+                    const errorTexto = await response.text();
+                    throw new Error(`Servidor devolvió estado ${response.status}. Detalle: ${errorTexto}`);
                 }
                 
-                // 1. LEEMOS COMO TEXTO PRIMERO PARA CORREGIR LA IA SI SE ADORNA
-                let textoRespuesta = await response.text();
+                // 1. LEEMOS EL CONTENIDO EN BRUTO COMO TEXTO
+                let textoLimpio = await response.text();
+                console.log("Respuesta en bruto de la IA:", textoLimpio); // Hito de control en consola
                 
-                // Si la IA mete bloques de código markdown (```json ... ```), los limpiamos
-                if (textoRespuesta.includes("```")) {
-                    textoRespuesta = textoRespuesta.replace(/```json/g, "").replace(/```/g, "").trim();
+                // 2. FILTRO A: Limpieza radical de bloques de código markdown
+                if (textoLimpio.includes("```")) {
+                    textoLimpio = textoLimpio.replace(/```json/gi, "").replace(/```/g, "").trim();
                 }
                 
-                // 2. PARSEAMOS AHORA SÍ DE FORMA SEGURA EL JSON
-                const data = JSON.parse(textoRespuesta);
+                // 3. FILTRO B: Control de respuestas que devuelven HTML por error en la ruta de producción
+                if (textoLimpio.startsWith("<!DOCTYPE") || textoLimpio.startsWith("<html")) {
+                    throw new Error("El servidor devolvió una página HTML en lugar de un JSON místico. Revisa las rutas de tu API.");
+                }
+
+                // 4. PARSEAMOS CON MÁXIMA SEGURIDAD
+                let data;
+                try {
+                    data = JSON.parse(textoLimpio);
+                } catch (jsonErr) {
+                    // Si falla por culpa de comillas internas mal puestas por la IA, intentamos un rescate de emergencia
+                    console.warn("JSON corrupto detectado. Intentando rescate de caracteres...");
+                    // Buscamos el texto atrapado entre el formato estándar de tu prompt
+                    const matchTexto = textoLimpio.match(/"texto"\s*:\s*"(.*)"\s*}/s);
+                    const matchNumero = textoLimpio.match(/"numero"\s*:\s*"(.*?)"/);
+                    
+                    if (matchTexto && matchNumero) {
+                        data = {
+                            numero: matchNumero[1],
+                            texto: matchTexto[1]
+                        };
+                    } else {
+                        throw new Error(`Imposible deserializar la profecía de la IA. Contenido original: ${textoLimpio}`);
+                    }
+                }
                 
-                // PAUSA DRAMÁTICA: Aseguramos los 3 segundos de suspense en la interfaz
+                // PAUSA DRAMÁTICA REGLAMENTARIA: Mantenemos el suspense de 3 segundos del caldero
                 const tiempoTranscurrido = Date.now() - tiempoInicio;
                 const esperaRestante = Math.max(3000 - tiempoTranscurrido, 0);
                 await new Promise(resolve => setTimeout(resolve, esperaRestante));
 
-                // Insertamos los datos en la interfaz
+                // Inyección segura de datos en la tarjeta de tarot
                 document.getElementById('numeroGordo').innerText = data.numero || "00000";
                 document.getElementById('prediccionTexto').innerText = data.texto || "La Bruja está tímida hoy...";
                 
-                // Botón Compartir
+                // Configuración dinámica del botón Compartir por WhatsApp
                 const btnCompartir = document.getElementById('btnCompartir');
                 btnCompartir.onclick = () => {
                     const textoSucio = `🔮 ¡El Oráculo de Halloween IA ha invocado mi número del Gordo! 🎄✨\n\n` +
@@ -192,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     window.open(urlWhatsApp, '_blank');
                 };
 
-                // Botón Localizar Décimo
+                // Configuración dinámica del buscador oficial de Loterías del Estado
                 const btnLocalizar = document.getElementById('btnLocalizar');
                 btnLocalizar.onclick = async () => {
                     try {
@@ -209,10 +235,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 };
                
-                // Ejecutamos el tañido lúgubre
                 reproducirSonidoMágico('revelacion');
 
-                // Mostramos el resultado con desvanecimiento elegante
+                // Despliegue con desvanecimiento estético
                 resultadoDiv.classList.remove('hidden');
                 setTimeout(() => {
                     resultadoDiv.style.transition = "opacity 1.2s ease-in-out";
@@ -220,7 +245,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, 50);
 
             } catch (error) {
-                console.error("Error en el conjuro:", error);
+                // REVELACIÓN CRÍTICA: Imprime el motivo real exacto del fallo en la consola para solucionarlo
+                console.error("🧙‍♂️ [Error en el Conjuro de la IA]:", error.message);
                 alert("La magia ha fallado temporalmente. Inténtalo de nuevo.");
             } finally {
 
