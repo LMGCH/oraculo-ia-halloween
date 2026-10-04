@@ -139,11 +139,11 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
                 btnLocalizar.innerText = "¡Número Copiado! Abriendo Buscador... 📋";
                 
                 setTimeout(() => {
-                    window.open("https://loteriasyapuestas.es", "_blank");
+                    window.open("https://www.loteriasyapuestas.es/es/buscar-decimo", "_blank");
                     btnLocalizar.innerText = textoOriginal;
                 }, 1200);
             } catch (err) {
-                window.open("https://loteriasyapuestas.es", "_blank");
+                window.open("https://www.loteriasyapuestas.es/es/buscar-decimo", "_blank");
             }
         };
        
