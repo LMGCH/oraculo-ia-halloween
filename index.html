@@ -7,17 +7,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- TARJETA PRINCIPAL (Todo el diseño gótico original se queda aquí dentro) -->
     <div class="tarot-card">
-        <!-- Pon esto justo debajo de <div class="tarot-card"> -->
+        
         <div class="oracle-avatar">
             <div class="witch-crop-container">
                 <img src="noun_Witch_6410552_@700.png" alt="Bruja de la Suerte" class="oracle-img">
             </div>
         </div>
-        <div>
-        <!-- Crédito limpio de reconocimiento en el pie de la tarjeta -->
-        <p class="creditos">🔮 Arte digital: <a href="https://thenounproject.com/" target="_blank">Julia Lehner (Noun Project)</a></p>
 
+        <div>
+            <p class="creditos">🔮 Arte digital: <a href="https://thenounproject.com" target="_blank">Julia Lehner (Noun Project)</a></p>
         </div>
 
         <h1>🔮 El Oráculo de Halloween</h1>
@@ -33,30 +34,27 @@
             <button type="submit" id="btnInvocar">Invocar mi Suerte 🎃</button>
         </form>
 
-
+        <!-- Resultados ocultos por defecto -->
         <div id="resultado" class="hidden">
             <div class="numero-suerte" id="numeroGordo">00000</div>
             <p id="prediccionTexto"></p>
-            <!-- Pon esto debajo de <p id="prediccionTexto"></p> -->
             <button id="btnCompartir" class="btn-whatsapp">Compartir mi Suerte por WhatsApp 🟢</button>
-            <!-- Pon esto en tu index.html, justo debajo del botón de WhatsApp -->
             <button id="btnLocalizar" class="btn-loterias">🔍 Buscar Dónde Comprar este Número</button>
-
-
         </div>
-        
-    </div>
-    <!-- PIE DE PÁGINA OBLIGATORIO: AVISO DE JUEGO RESPONSABLE -->
+
+    </div> <!-- AQUÍ SE CIERRA LA TARJETA -->
+
+    <!-- EL FOOTER LEGAL SE QUEDA COMPLETAMENTE FUERA Y SEPARADO -->
     <footer class="footer-legal">
-        <p><strong>El Oráculo del Gordo 2026</strong> es una aplicación web puramente recreativa e informativa. No garantizamos premios ni comercializamos lotería directamente.</p>
+        <p><strong>El Oráculo del Gordo 2026</strong> es una aplicación web puramente recreativa e informativa. No garantizamos ningún tipo de premio ni comercializamos lotería directamente.</p>
         <p>Prohibido para menores de edad. Juega con responsabilidad y de forma moderada. Si necesitas ayuda, visita <a href="https://jugarbien.es" target="_blank" rel="noopener noreferrer">JugarBIEN.es</a>.</p>
         <div class="logos-juego">
             <span class="badge-18">+18</span>
             <span class="badge-responsable">Juego Responsable</span>
         </div>
     </footer>
+
     <script src="app.js"></script>
-
 </body>
-
 </html>
+
