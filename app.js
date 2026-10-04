@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 setTimeout(() => {
                     window.location.href = "https://google.com";
-                }, 4000);
+                }, 5000);
                 
                 return; // Bloquea la petición de la API de forma tajante
             }
