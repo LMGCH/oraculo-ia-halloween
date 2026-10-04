@@ -117,6 +117,8 @@ input {
     letter-spacing: 1px;
     box-sizing: border-box;
     transition: 0.3s;
+    appearance: none; /* Elimina estilos heredados de Apple/Android */
+    -webkit-appearance: none;
 }
 
 input:focus {
