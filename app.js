@@ -1,4 +1,4 @@
-// 🎵 EFECTOS DE SONIDO SINTÉTICOS (Generados por código para no depender de archivos externos)
+// 🎵 EFECTOS DE SONIDO SINTÉTICOS (Corregidos para máxima compatibilidad)
 const reproducirSonidoMágico = (tipo) => {
     try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -12,7 +12,7 @@ const reproducirSonidoMágico = (tipo) => {
             osc.type = 'sawtooth';
             osc.frequency.setValueAtTime(70, ctx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(250, ctx.currentTime + 2);
-            gain.gain.setValueAtTime(0.1, ctx.currentTime);
+            gain.gain.setValueAtTime(0.15, ctx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 2);
             osc.connect(gain);
             gain.connect(ctx.destination);
@@ -25,7 +25,7 @@ const reproducirSonidoMágico = (tipo) => {
                 const gain = ctx.createGain();
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(frec, ctx.currentTime + i * 0.1);
-                gain.gain.setValueAtTime(0.08, ctx.currentTime + i * 0.1);
+                gain.gain.setValueAtTime(0.1, ctx.currentTime + i * 0.1);
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.1 + 0.4);
                 osc.connect(gain);
                 gain.connect(ctx.destination);
@@ -34,7 +34,7 @@ const reproducirSonidoMágico = (tipo) => {
             });
         }
     } catch (e) {
-        console.log("Audio bloqueado por el navegador hasta que el usuario interactúe.");
+        console.log("Audio bloqueado: El navegador requiere que hagas clic en la página antes de sonar.");
     }
 };
 
@@ -43,18 +43,29 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
     
     const btn = document.getElementById('btnInvocar');
     const resultadoDiv = document.getElementById('resultado');
-    const formulario = document.getElementById('oracleForm'); // Capturamos el formulario para la animación
+    const formulario = document.getElementById('oracleForm');
     
-    // 🎵 Activamos el efecto del caldero hirviendo
+    // 🎵 Forzamos el inicio del sonido del caldero
     reproducirSonidoMágico('caldero');
 
-    // ✨ MEJORA VISUAL: Animación de carga y difuminado del formulario
-    btn.innerHTML = `<span class="inline-block animate-spin mr-2">🧪</span> Removiendo el caldero...`;
+    // ✨ ANIMACIÓN CON CSS PURO INYECTADO: Creamos el giro del emoji sin depender de Tailwind
+    if (!document.getElementById('bruja-spin-style')) {
+        const style = document.createElement('style');
+        style.id = 'bruja-spin-style';
+        style.innerHTML = `
+            @keyframes brujaGiro { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+            .giro-magico { display: inline-block; animation: brujaGiro 1s linear infinite; margin-right: 8px; }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Aplicamos los estados visuales de carga de forma manual e inmediata
+    btn.innerHTML = `<span class="giro-magico">🧪</span> Removiendo el caldero...`;
     btn.disabled = true;
-    formulario.style.opacity = "0.5";
     formulario.style.transition = "opacity 0.4s ease";
+    formulario.style.opacity = "0.4";
     
-    // Reseteamos el contenedor de resultados para la nueva animación de entrada
+    // Ocultamos el resultado anterior y forzamos su opacidad a 0
     resultadoDiv.classList.add('hidden');
     resultadoDiv.style.opacity = "0";
 
@@ -110,25 +121,27 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
             }
         };
        
-        // 🎵 Éxito: Disparamos las campanas mágicas
+        // 🎵 Éxito: Suenan las campanas del destino
         reproducirSonidoMágico('revelacion');
 
-        // ✨ REVELACIÓN EFECTO FADE-IN: El resultado aparece suavemente en pantalla
+        // ✨ EFECTO FADE-IN SEGURO: Mostramos el bloque y hacemos la transición de opacidad
         resultadoDiv.classList.remove('hidden');
+        resultadoDiv.style.transition = "opacity 0.8s ease";
+        // Pequeño retardo imperceptible para que el navegador registre el cambio de opacidad
         setTimeout(() => {
-            resultadoDiv.style.transition = "opacity 0.8s ease";
             resultadoDiv.style.opacity = "1";
-        }, 50);
+        }, 30);
 
     } catch (error) {
         console.error("Error en el conjuro:", error);
         alert("La magia ha fallado temporalmente. Inténtalo de nuevo.");
     } finally {
-        // Restauramos los botones e interfaz a su estado original
+        // Devolvemos la interfaz a su estado normal
         btn.innerText = "Invocar mi Suerte 🎃";
         btn.disabled = false;
         formulario.style.opacity = "1";
     }
 });
+
 
 
