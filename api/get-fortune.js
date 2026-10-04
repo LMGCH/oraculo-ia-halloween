@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     }
 
     // 🔮 CAMBIO ESTRATÉGICO: Migramos al endpoint hiper-estable y rápido de Gemini 2.0 Flash
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${API_KEY}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${API_KEY}`;
 
     const promptTexto = `Genera una predicción para el usuario:
     - Nombre o apodo: ${nombre}
