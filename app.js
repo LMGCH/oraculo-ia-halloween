@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 setTimeout(() => {
                     window.location.href = "https://google.com";
-                }, 4000);
+                }, 5000);
                 
                 return; // Bloquea la petición de la API
             }
@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                        `Invoque el tuyo gratis aquí: ${window.location.href}`;
                     
                     const textoCodificado = encodeURIComponent(textoSucio);
-                    const urlWhatsApp = "https://wa.me" + textoCodificado;
+                    const urlWhatsApp = "https://wa.me?text=" + textoCodificado;
                     window.open(urlWhatsApp, '_blank');
                 };
 
@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             btnLocalizar.innerText = textoOriginal;
                         }, 1200);
                     } catch (err) {
-                        window.open("https://loteriasyapuestas.es", "_blank");
+                        window.open("https://www.loteriasyapuestas.es/es/buscar-decimo", "_blank");
                     }
                 };
                
