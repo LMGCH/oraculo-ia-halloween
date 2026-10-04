@@ -290,3 +290,49 @@ button:hover {
     50% { transform: translateY(-6px); }
     100% { transform: translateY(0px); }
 }
+
+/* ==========================================================================
+   11. ADAPTACIÓN MÍSTICA PARA PANTALLAS MÓVILES (RESPONSIVE)
+   ========================================================================== */
+
+@media (max-width: 480px) {
+    /* Reducimos sutilmente los rellenos para ganar espacio vital en pantalla */
+    body {
+        padding: 20px 12px;
+    }
+
+    .tarot-card {
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+
+    /* Ajustamos el tamaño del avatar para que no desplace el formulario hacia abajo */
+    .oracle-avatar {
+        width: 130px;
+        height: 130px;
+        margin-bottom: 15px;
+    }
+
+    /* Reducimos ligeramente los textos principales para evitar saltos de línea raros */
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    .subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 20px;
+    }
+
+    /* Optimizamos el tamaño del número de la suerte para pantallas estrechas */
+    .numero-suerte {
+        font-size: 2.8rem;
+        letter-spacing: 4px;
+        margin: 15px 0 10px 0;
+    }
+
+    /* Mejoramos el espacio de lectura en el aviso legal inferior */
+    .footer-legal {
+        font-size: 0.68rem;
+        padding: 5px 10px;
+    }
+}
