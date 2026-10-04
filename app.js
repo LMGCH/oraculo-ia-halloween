@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ----------------------------------------------------------------------
-    // CONTROL DEL FORMULARIO PRINCIPAL (CON FILTRO MÓVIL SEGURO)
+    // PARTE B: Gestión del Formulario y el SEGUNDO FILTRO DE SEGURIDAD
     // ----------------------------------------------------------------------
     const formulario = document.getElementById('oracleForm');
     
@@ -90,13 +90,19 @@ document.addEventListener("DOMContentLoaded", () => {
             // Captura de elementos de interfaz
             const btn = document.getElementById('btnInvocar');
             const resultadoDiv = document.getElementById('resultado');
-            const fechaInput = document.getElementById('fechaNacimiento').value;
+            
+            // CONSTRUCCIÓN DE LA VARIABLE DE DATOS (¡AQUÍ ESTÁ LA SOLUCIÓN!)
+            const datos = {
+                nombre: document.getElementById('nombre').value,
+                fecha: document.getElementById('fechaNacimiento').value,
+                color: document.getElementById('color').value
+            };
 
-            if (!fechaInput) return;
+            if (!datos.fecha) return;
 
             // 1. CONTROL MATEMÁTICO DE MINORÍA DE EDAD EN EL FORMULARIO
             const hoy = new Date();
-            const fechaNacimiento = new Date(fechaInput);
+            const fechaNacimiento = new Date(datos.fecha);
             
             let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
             const diferenciaMeses = hoy.getMonth() - fechaNacimiento.getMonth();
@@ -117,9 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 setTimeout(() => {
                     window.location.href = "https://google.com";
-                }, 5000);
+                }, 4000);
                 
-                return; // Bloquea la petición de la API de forma tajante
+                return; // Bloquea la petición de la API
             }
 
             // 2. FLUJO MAYORES DE EDAD AUTORIZADOS
@@ -147,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
             resultadoDiv.style.opacity = "0";
 
             const tiempoInicio = Date.now();
+
 
             try {
                 const response = await fetch('/api/get-fortune', {
