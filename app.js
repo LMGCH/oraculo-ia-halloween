@@ -1,5 +1,22 @@
 // app.js
 
+// CONTROL DE MAYORÍA DE EDAD
+document.addEventListener("DOMContentLoaded", () => {
+    const ageGate = document.getElementById("ageGate");
+    const btnYes = document.getElementById("ageGateYes");
+    const btnNo = document.getElementById("ageGateNo");
+
+    // Si el usuario hace clic en "Sí, soy mayor de edad"
+    btnYes.addEventListener("click", () => {
+        ageGate.classList.add("fade-out"); // Desvanece el escudo de forma elegante
+    });
+
+    // Si hace clic en "No, soy menor"
+    btnNo.addEventListener("click", () => {
+        window.location.href = "https://google.com"; // Lo expulsa a Google
+    });
+});
+
 // 🎵 EFECTOS DE SONIDO SINTÉTICOS BLINDADOS
 const reproducirSonidoMágico = (tipo) => {
     try {
