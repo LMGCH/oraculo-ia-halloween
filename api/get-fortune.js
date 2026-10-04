@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     }
 
     // Endpoint estable de Gemini 1.5 Flash
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={API_KEY}`;
 
     const promptTexto = `Genera una predicción para el usuario:
     - Nombre o apodo: ${nombre}
