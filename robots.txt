@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://oraculo-ia-halloween.vercel.app/
+Sitemap: https://oraculo-ia-halloween.vercel.app/sitemap.xml
