@@ -30,21 +30,13 @@ export default async function handler(req, res) {
                     parts: [{
                         text: `Actúas como una bruja gótica, sarcástica, ingeniosa y muy divertida de Halloween. El usuario te pide su número de la suerte para el Gordo de Navidad de este año. Debes inventar un sortilegio místico, cómico, enigmático, invocando a la buena fortuna y totalmente personalizado basado en la numerología cabalística (que transforma sus datos: como su color, su nombre y su fecha). 
                         
-                        REGLAS CRÍTICAS DE CONTROL: Está estrictamente prohibido mencionar la muerte, ataúdes, fatalidades, o usar adjetivos insultantes o despectivos hacia los datos del usuario. El sarcasmo debe ser simpático y el desenlace de la profecía siempre debe ser optimista y positivo.`
+                        REGLAS CRÍTICAS DE CONTROL: Está estrictamente prohibido mencionar la muerte, ataúdes, fatalidades, o usar adjetivos insultantes o despectivos hacia los datos del usuario. El sarcasmo debe ser simpático y el desenlace de la profecía siempre debe ser optimista y positivo.
+                        
+                        Tu respuesta debe ser OBLIGATORIAMENTE un objeto JSON válido, sin textos adicionales, sin marcas markdown ni bloques de código. El formato exacto debe ser: {"numero": "string de 5 dígitos calculados", "texto": "frase del sortilegio humorístico de menos de 25 palabras"}`
                     }]
-                },
-                generationConfig: { 
-                    responseMimeType: "application/json", // Activa el JSON nativo
-                    responseSchema: {
-                        type: "object", // EN MINÚSCULAS: Evita el colapso 500
-                        properties: {
-                            numero: { type: "string", description: "String de 5 dígitos calculados" }, // EN MINÚSCULAS
-                            texto: { type: "string", description: "Frase del sortilegio humorístico de menos de 25 palabras" } // EN MINÚSCULAS
-                        },
-                        required: ["numero", "texto"]
-                    }
                 }
             });
+
 
 
         const data = await response.json();
