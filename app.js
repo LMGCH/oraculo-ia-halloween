@@ -1,66 +1,14 @@
 // app.js
 
-// Variables globales para controlar la música ambiental
-let musicaFondoCtx = null;
-let nodoMúsica = null;
-
-// 🔮 FUNCIÓN PARA INICIAR LA MÚSICA TÉTRICA DE FONDO (Optimizada para interacción directa)
-const iniciarAmbienteTerror = () => {
-    if (musicaFondoCtx) return; // Si ya está sonando, evitamos duplicados
-
-    try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        musicaFondoCtx = new AudioContext();
-        
-        // Creamos osciladores de frecuencias graves desafinados a propósito para generar tensión gótica
-        const osc1 = musicaFondoCtx.createOscillator();
-        const osc2 = musicaFondoCtx.createOscillator();
-        const gainNodo = musicaFondoCtx.createGain();
-        
-        osc1.type = 'sine';
-        osc1.frequency.setValueAtTime(55, musicaFondoCtx.currentTime); // Nota grave profunda
-        
-        osc2.type = 'triangle';
-        osc2.frequency.setValueAtTime(57.5, musicaFondoCtx.currentTime); // Ligeramente desafinada para crear suspense
-        
-        gainNodo.gain.setValueAtTime(0.05, musicaFondoCtx.currentTime); // Volumen sutil de fondo
-        
-        osc1.connect(gainNodo);
-        osc2.connect(gainNodo);
-        gainNodo.connect(musicaFondoCtx.destination);
-        
-        osc1.start();
-        osc2.start();
-        
-        nodoMúsica = { osc1, osc2, gainNodo };
-        console.log("👻 Los espíritus musicales han despertado con tu interacción.");
-    } catch (e) {
-        console.log("El navegador sigue bloqueando el audio contextual.");
-    }
-};
-
-// ⚡ SOLUCIÓN CLAVE: Activamos la música cuando el usuario interactúa con los inputs del formulario
-// Esto garantiza al navegador que es una acción real y legítima del usuario
-document.addEventListener('DOMContentLoaded', () => {
-    const inputs = ['nombre', 'fechaNacimiento', 'color'];
-    inputs.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            // Se activa al hacer clic en el campo o al empezar a escribir
-            el.addEventListener('focus', iniciarAmbienteTerror, { once: true });
-            el.addEventListener('input', iniciarAmbienteTerror, { once: true });
-        }
-    });
-});
-
-
-// 🎵 EFECTOS DE SONIDO SINTÉTICOS (Conjuro extendido y tañido medieval)
+// 🎵 EFECTOS DE SONIDO SINTÉTICOS BLINDADOS
 const reproducirSonidoMágico = (tipo) => {
     try {
-        // Usamos el contexto musical de fondo si ya existe, o creamos uno nuevo temporal
-        const ctx = musicaFondoCtx || new (window.AudioContext || window.webkitAudioContext)();
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
         
         if (tipo === 'caldero') {
+            // Sonido extendido, tétrico y modulado de un maleficio
             const osc = ctx.createOscillator();
             const modulador = ctx.createOscillator();
             const gainModulador = ctx.createGain();
@@ -88,8 +36,9 @@ const reproducirSonidoMágico = (tipo) => {
             osc.stop(ctx.currentTime + 3.2);
             
         } else if (tipo === 'revelacion') {
-            // Tañido medieval gótico
-           .forEach((frec, i) => {
+            // 🔮 CORRECCIÓN CLAVE: Array de frecuencias medievales corregido sintácticamente
+            const frecuencias = [261.63, 311.13, 392.00, 523.25]; 
+            frecuencias.forEach((frec, i) => {
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
                 osc.type = 'triangle';
@@ -103,34 +52,34 @@ const reproducirSonidoMágico = (tipo) => {
             });
         }
     } catch (e) {
-        console.log("Error al reproducir el efecto de sonido puntual.");
+        console.log("Audio omitido de forma segura para no romper la app.");
     }
 };
 
 document.getElementById('oracleForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    // Forzado de seguridad si el usuario rellenó los campos de forma ultra rápida
-    iniciarAmbienteTerror();
-    
     const btn = document.getElementById('btnInvocar');
     const resultadoDiv = document.getElementById('resultado');
     const formulario = document.getElementById('oracleForm');
     
+    // Ejecutamos el sonido del caldero (si el navegador lo permite, sonará; si no, la app sigue)
     reproducirSonidoMágico('caldero');
 
+    // Inyectamos la animación del matraz giratorio de forma segura
     if (!document.getElementById('bruja-spin-style')) {
         const style = document.createElement('style');
         style.id = 'bruja-spin-style';
         style.innerHTML = `
             @keyframes brujaGiro { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-            @keyframes parpadeoTerror { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+            @keyframes parpadeoTerror { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
             .giro-magico { display: inline-block; animation: brujaGiro 0.8s linear infinite; margin-right: 8px; }
             .parpadeo-bruja { animation: parpadeoTerror 0.5s ease-in-out infinite; }
         `;
         document.head.appendChild(style);
     }
 
+    // Cambios visuales instantáneos de carga
     btn.innerHTML = `<span class="giro-magico">🧪</span> Invocando a los espíritus...`;
     btn.disabled = true;
     formulario.classList.add('parpadeo-bruja');
@@ -159,14 +108,16 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
         
         const data = await response.json();
         
+        // PAUSA DRAMÁTICA: Calculamos cuánto tardó Gemini 3.8 y aseguramos 3 segundos de suspense
         const tiempoTranscurrido = Date.now() - tiempoInicio;
         const esperaRestante = Math.max(3000 - tiempoTranscurrido, 0);
-
         await new Promise(resolve => setTimeout(resolve, esperaRestante));
 
+        // Insertamos los datos en la interfaz
         document.getElementById('numeroGordo').innerText = data.numero || "00000";
         document.getElementById('prediccionTexto').innerText = data.texto || "La Bruja está tímida hoy...";
         
+        // Botón Compartir
         const btnCompartir = document.getElementById('btnCompartir');
         btnCompartir.onclick = () => {
             const textoSucio = `🔮 ¡El Oráculo de Halloween IA ha invocado mi número del Gordo! 🎄✨\n\n` +
@@ -179,6 +130,7 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
             window.open(urlWhatsApp, '_blank');
         };
 
+        // Botón Localizar Décimo
         const btnLocalizar = document.getElementById('btnLocalizar');
         btnLocalizar.onclick = async () => {
             try {
@@ -195,11 +147,13 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
             }
         };
        
+        // Ejecutamos el tañido lúgubre
         reproducirSonidoMágico('revelacion');
 
+        // Mostramos el resultado con desvanecimiento elegante
         resultadoDiv.classList.remove('hidden');
-        resultadoDiv.style.transition = "opacity 1.2s ease-in-out";
         setTimeout(() => {
+            resultadoDiv.style.transition = "opacity 1.2s ease-in-out";
             resultadoDiv.style.opacity = "1";
         }, 50);
 
@@ -207,9 +161,9 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
         console.error("Error en el conjuro:", error);
         alert("La magia ha fallado temporalmente. Inténtalo de nuevo.");
     } finally {
+        // Restauramos los botones e interfaz de forma segura siempre
         btn.innerText = "Invocar mi Suerte 🎃";
         btn.disabled = false;
         formulario.classList.remove('parpadeo-bruja');
-        formulario.style.opacity = "1";
     }
 });
