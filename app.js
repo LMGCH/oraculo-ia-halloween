@@ -126,7 +126,7 @@ document.getElementById('oracleForm').addEventListener('submit', async (e) => {
                                `Invoque el tuyo gratis aquí: ${window.location.href}`;
             
             const textoCodificado = encodeURIComponent(textoSucio);
-            const urlWhatsApp = "https://wa.me" + textoCodificado;
+            const urlWhatsApp = "https://wa.me/?text=" + textoCodificado;
             window.open(urlWhatsApp, '_blank');
         };
 
