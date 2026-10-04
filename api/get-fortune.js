@@ -32,10 +32,11 @@ export default async function handler(req, res) {
                         
                         REGLAS CRÍTICAS DE CONTROL: Está estrictamente prohibido mencionar la muerte, ataúdes, fatalidades, o usar adjetivos insultantes o despectivos hacia los datos del usuario. El sarcasmo debe ser simpático y el desenlace de la profecía siempre debe ser optimista y positivo.
                         
-                        Tu respuesta debe ser OBLIGATORIAMENTE un objeto JSON válido, sin textos adicionales, sin marcas markdown ni bloques de código. El formato exacto debe ser: {"numero": "string de 5 dígitos calculados", "texto": "frase del sortilegio humorístico de menos de 25 palabras"}`
+                        Tu respuesta debe ser OBLIGATORIAMENTE un objeto JSON válido, sin textos adicionales, sin marcas markdown ni bloques de código. El formato exacto debe ser: {'numero': 'string de 5 dígitos calculados', 'texto': 'frase del sortilegio humorístico de menos de 25 palabras'}`
                     }]
                 }
             });
+
 
 
 
