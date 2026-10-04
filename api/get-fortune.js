@@ -34,17 +34,18 @@ export default async function handler(req, res) {
                     }]
                 },
                 generationConfig: { 
-                    responseMimeType: "application/json", // Activa el modo JSON nativo seguro [1]
+                    responseMimeType: "application/json", // Activa el JSON nativo
                     responseSchema: {
-                        type: "OBJECT",
+                        type: "object", // EN MINÚSCULAS: Evita el colapso 500
                         properties: {
-                            numero: { type: "STRING", description: "String de 5 dígitos calculados" },
-                            texto: { type: "STRING", description: "Frase del sortilegio humorístico de menos de 25 palabras" }
+                            numero: { type: "string", description: "String de 5 dígitos calculados" }, // EN MINÚSCULAS
+                            texto: { type: "string", description: "Frase del sortilegio humorístico de menos de 25 palabras" } // EN MINÚSCULAS
                         },
                         required: ["numero", "texto"]
                     }
                 }
             });
+
 
         const data = await response.json();
         
