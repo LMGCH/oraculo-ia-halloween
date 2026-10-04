@@ -146,12 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
             resultadoDiv.classList.add('hidden');
             resultadoDiv.style.opacity = "0";
 
-            const datos = {
-                nombre: document.getElementById('nombre').value,
-                fecha: fechaInput,
-                color: document.getElementById('color').value
-            };
-
             const tiempoInicio = Date.now();
 
             try {
@@ -165,18 +159,27 @@ document.addEventListener("DOMContentLoaded", () => {
                     throw new Error(`Error en el servidor: ${response.status}`);
                 }
                 
-                const data = await response.json();
+                // 1. LEEMOS COMO TEXTO PRIMERO PARA CORREGIR LA IA SI SE ADORNA
+                let textoRespuesta = await response.text();
                 
-                // Aseguramos los 3 segundos reglamentarios de suspense y burbujeo
+                // Si la IA mete bloques de código markdown (```json ... ```), los limpiamos
+                if (textoRespuesta.includes("```")) {
+                    textoRespuesta = textoRespuesta.replace(/```json/g, "").replace(/```/g, "").trim();
+                }
+                
+                // 2. PARSEAMOS AHORA SÍ DE FORMA SEGURA EL JSON
+                const data = JSON.parse(textoRespuesta);
+                
+                // PAUSA DRAMÁTICA: Aseguramos los 3 segundos de suspense en la interfaz
                 const tiempoTranscurrido = Date.now() - tiempoInicio;
                 const esperaRestante = Math.max(3000 - tiempoTranscurrido, 0);
                 await new Promise(resolve => setTimeout(resolve, esperaRestante));
 
-                // Inyección de números y textos de la API
+                // Insertamos los datos en la interfaz
                 document.getElementById('numeroGordo').innerText = data.numero || "00000";
                 document.getElementById('prediccionTexto').innerText = data.texto || "La Bruja está tímida hoy...";
                 
-                // Vinculación dinámica del botón Compartir por WhatsApp
+                // Botón Compartir
                 const btnCompartir = document.getElementById('btnCompartir');
                 btnCompartir.onclick = () => {
                     const textoSucio = `🔮 ¡El Oráculo de Halloween IA ha invocado mi número del Gordo! 🎄✨\n\n` +
@@ -185,11 +188,11 @@ document.addEventListener("DOMContentLoaded", () => {
                                        `Invoque el tuyo gratis aquí: ${window.location.href}`;
                     
                     const textoCodificado = encodeURIComponent(textoSucio);
-                    const urlWhatsApp = "https://wa.me/?text=" + textoCodificado;
+                    const urlWhatsApp = "https://wa.me" + textoCodificado;
                     window.open(urlWhatsApp, '_blank');
                 };
 
-                // Vinculación dinámica del buscador de Loterías del Estado
+                // Botón Localizar Décimo
                 const btnLocalizar = document.getElementById('btnLocalizar');
                 btnLocalizar.onclick = async () => {
                     try {
@@ -198,17 +201,18 @@ document.addEventListener("DOMContentLoaded", () => {
                         btnLocalizar.innerText = "¡Número Copiado! Abriendo Buscador... 📋";
                         
                         setTimeout(() => {
-                            window.open("https://www.loteriasyapuestas.es/es/buscar-decimo", "_blank");
+                            window.open("https://loteriasyapuestas.es", "_blank");
                             btnLocalizar.innerText = textoOriginal;
                         }, 1200);
                     } catch (err) {
-                        window.open("https://www.loteriasyapuestas.es/es/buscar-decimo", "_blank");
+                        window.open("https://loteriasyapuestas.es", "_blank");
                     }
                 };
                
+                // Ejecutamos el tañido lúgubre
                 reproducirSonidoMágico('revelacion');
 
-                // Transición fluida de aparición
+                // Mostramos el resultado con desvanecimiento elegante
                 resultadoDiv.classList.remove('hidden');
                 setTimeout(() => {
                     resultadoDiv.style.transition = "opacity 1.2s ease-in-out";
@@ -219,6 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.error("Error en el conjuro:", error);
                 alert("La magia ha fallado temporalmente. Inténtalo de nuevo.");
             } finally {
+
                 // Restauramos el botón y la interfaz gótica a su estado inicial
                 btn.innerText = "Invocar mi Suerte 🎃";
                 btn.disabled = false;
