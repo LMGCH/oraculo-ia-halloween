@@ -225,24 +225,29 @@ document.addEventListener("DOMContentLoaded", () => {
                     window.open(urlWhatsApp, '_blank');
                 };
 
-                // Configuración dinámica del buscador oficial de Loterías del Estado
+                // Configuración segura: Copia el número y avisa al usuario sin redirecciones automáticas
                 const btnLocalizar = document.getElementById('btnLocalizar');
                 btnLocalizar.onclick = async () => {
                     try {
                         await navigator.clipboard.writeText(data.numero);
                         const textoOriginal = btnLocalizar.innerText;
-                        btnLocalizar.innerText = "¡Número Copiado! Abriendo Buscador... 📋";
+                        
+                        // Cambiamos el texto para que el usuario sepa que ya lo tiene copiado
+                        btnLocalizar.innerText = "🔮 ¡Número Copiado al Portapapeles! 📋";
+                        btnLocalizar.style.backgroundColor = "#28a745"; // Opcional: un toque verde de éxito si te encaja
                         
                         setTimeout(() => {
-                            window.open("https://loteriasyapuestas.es", "_blank");
                             btnLocalizar.innerText = textoOriginal;
-                        }, 1200);
+                            btnLocalizar.style.backgroundColor = ""; // Restaura el color original de tu CSS
+                        }, 3000);
                     } catch (err) {
-                        window.open("https://www.loteriasyapuestas.es/es/buscar-decimo", "_blank");
+                        // Si falla el portapapeles por permisos del navegador, avisamos con un fallback clásico
+                        alert("🔮 Tu número de la suerte es: " + data.numero + ". ¡Apúntalo!");
                     }
                 };
-               
+                
                 reproducirSonidoMágico('revelacion');
+
 
                 // Despliegue con desvanecimiento estético
                 resultadoDiv.classList.remove('hidden');
