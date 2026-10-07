@@ -3,54 +3,48 @@
 // ==========================================================================
 
 // 🎵 EFECTOS DE SONIDO SINTÉTICOS BLINDADOS (Se mantienen intactos)
-const reproducirSonidoMágico = (tipo) => {
-    try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        const ctx = new AudioContext();
-        
-        if (tipo === 'caldero') {
-            const osc = ctx.createOscillator();
-            const modulador = ctx.createOscillator();
-            const gainModulador = ctx.createGain();
-            const gainPrincipal = ctx.createGain();
-            
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(60, ctx.currentTime);
-            
-            modulador.frequency.setValueAtTime(8, ctx.currentTime);
-            gainModulador.gain.setValueAtTime(40, ctx.currentTime);
-            
-            modulador.connect(gainModulador);
-            gainModulador.connect(osc.frequency);
-            
-            gainPrincipal.gain.setValueAtTime(0.15, ctx.currentTime);
-            gainPrincipal.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 1.5);
-            gainPrincipal.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 3.2);
-            
-            osc.connect(gainPrincipal);
-            gainPrincipal.connect(ctx.destination);
-            
-            modulador.start();
-            osc.start();
-            modulador.stop(ctx.currentTime + 3.2);
-            osc.stop(ctx.currentTime + 3.2);
-            
         } else if (tipo === 'revelacion') {
-            const frecuencias = [261.63, 311.13, 392.00, 523.25]; 
+            // Estructura: [Acorde Inicial (4 notas)] + [3 Toques secuenciales (Trítono Macabro)]
+            const frecuencias = [
+                261.63, 311.13, 392.00, 523.25, // 0, 1, 2, 3 -> Acorde base Do menor
+                369.99,                         // 4 -> Primer toque terrorífico (Fa#)
+                392.00,                         // 5 -> Segundo toque (Sol)
+                246.94                          // 6 -> Tercer toque grave (Si)
+            ]; 
+
+            const tiempoEntreCampanas = 1.2; // Segundos de separación entre los tres toques individuales
+
             frecuencias.forEach((frec, i) => {
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
+                
+                // Las primeras 4 notas (índices 0 al 3) arrancan en el segundo 0 (al unísono).
+                // A partir del índice 4, se van escalonando en el tiempo.
+                let tiempoInicio = ctx.currentTime;
+                if (i >= 4) {
+                    const pasoCampana = i - 3; // El índice 4 será el paso 1, el 5 el paso 2...
+                    tiempoInicio += pasoCampana * tiempoEntreCampanas;
+                }
+
+                // Ajustamos la duración de la resonancia de cada campana (2 segundos de desvanecimiento)
+                const tiempoFin = tiempoInicio + 2.0;
+
                 osc.type = 'triangle';
-                osc.frequency.setValueAtTime(frec, ctx.currentTime);
-                gain.gain.setValueAtTime(0.15, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2.0);
+                osc.frequency.setValueAtTime(frec, tiempoInicio);
+                
+                // Envolvente de volumen (ADSR) blindada para que no haga "pop" al iniciar
+                gain.gain.setValueAtTime(0, tiempoInicio);
+                gain.gain.linearRampToValueAtTime(0.15, tiempoInicio + 0.02); // Ataque rápido de campana
+                gain.gain.exponentialRampToValueAtTime(0.001, tiempoFin);     // Decaimiento largo y tétrico
+                
                 osc.connect(gain);
                 gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 2.0);
+                
+                osc.start(tiempoInicio);
+                osc.stop(tiempoFin);
             });
         }
+
     } catch (e) {
         console.log("Audio omitido de forma segura para no romper la app.");
     }
