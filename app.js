@@ -3,6 +3,39 @@
 // ==========================================================================
 
 // 🎵 EFECTOS DE SONIDO SINTÉTICOS BLINDADOS (Se mantienen intactos)
+const reproducirSonidoMágico = (tipo) => {
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        
+        if (tipo === 'caldero') {
+            const osc = ctx.createOscillator();
+            const modulador = ctx.createOscillator();
+            const gainModulador = ctx.createGain();
+            const gainPrincipal = ctx.createGain();
+            
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(60, ctx.currentTime);
+            
+            modulador.frequency.setValueAtTime(8, ctx.currentTime);
+            gainModulador.gain.setValueAtTime(40, ctx.currentTime);
+            
+            modulador.connect(gainModulador);
+            gainModulador.connect(osc.frequency);
+            
+            gainPrincipal.gain.setValueAtTime(0.15, ctx.currentTime);
+            gainPrincipal.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 1.5);
+            gainPrincipal.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 3.2);
+            
+            osc.connect(gainPrincipal);
+            gainPrincipal.connect(ctx.destination);
+            
+            modulador.start();
+            osc.start();
+            modulador.stop(ctx.currentTime + 3.2);
+            osc.stop(ctx.currentTime + 3.2);
+            
         } else if (tipo === 'revelacion') {
             // Estructura: [Acorde Inicial (4 notas)] + [3 Toques secuenciales (Trítono Macabro)]
             const frecuencias = [
@@ -44,7 +77,6 @@
                 osc.stop(tiempoFin);
             });
         }
-
     } catch (e) {
         console.log("Audio omitido de forma segura para no romper la app.");
     }
